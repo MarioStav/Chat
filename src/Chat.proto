@@ -29,3 +29,7 @@ message joinChannel{
 message leaveChannel{
   string channelName = 1;
 }
+
+message createChannel{
+  string channelName = 1;
+}

@@ -19,7 +19,7 @@
 class ChatClient{
 public:
     ChatClient(){};
-    ChatClient(short unsigned int _port, std::string _name);
+    ChatClient(short unsigned int _port, std::string _name, bool admin);
     void signIn(asio::ip::tcp::socket& _socket);
     void handleUserInput(asio::ip::tcp::socket& _socket); 
 };

@@ -40,6 +40,6 @@ int main(int argc, char* argv[])
     string name;
     cin >> name;
     cout << "Welcome " << name << "!" << endl;
-    ChatClient cclient(port, name);
+    ChatClient cclient(port, name, admin);
     return 0;
 }

@@ -48,7 +48,7 @@ struct TableStruct_Chat_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[6]
+  static const ::google::protobuf::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -68,6 +68,9 @@ extern SignOutDefaultTypeInternal _SignOut_default_instance_;
 class Unauthorized;
 class UnauthorizedDefaultTypeInternal;
 extern UnauthorizedDefaultTypeInternal _Unauthorized_default_instance_;
+class createChannel;
+class createChannelDefaultTypeInternal;
+extern createChannelDefaultTypeInternal _createChannel_default_instance_;
 class joinChannel;
 class joinChannelDefaultTypeInternal;
 extern joinChannelDefaultTypeInternal _joinChannel_default_instance_;
@@ -81,6 +84,7 @@ template<> ::Chat::ChatMessage* Arena::CreateMaybeMessage<::Chat::ChatMessage>(A
 template<> ::Chat::SignIn* Arena::CreateMaybeMessage<::Chat::SignIn>(Arena*);
 template<> ::Chat::SignOut* Arena::CreateMaybeMessage<::Chat::SignOut>(Arena*);
 template<> ::Chat::Unauthorized* Arena::CreateMaybeMessage<::Chat::Unauthorized>(Arena*);
+template<> ::Chat::createChannel* Arena::CreateMaybeMessage<::Chat::createChannel>(Arena*);
 template<> ::Chat::joinChannel* Arena::CreateMaybeMessage<::Chat::joinChannel>(Arena*);
 template<> ::Chat::leaveChannel* Arena::CreateMaybeMessage<::Chat::leaveChannel>(Arena*);
 }  // namespace protobuf
@@ -839,6 +843,129 @@ class leaveChannel final :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Chat_2eproto;
 };
+// -------------------------------------------------------------------
+
+class createChannel final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Chat.createChannel) */ {
+ public:
+  createChannel();
+  virtual ~createChannel();
+
+  createChannel(const createChannel& from);
+
+  inline createChannel& operator=(const createChannel& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  createChannel(createChannel&& from) noexcept
+    : createChannel() {
+    *this = ::std::move(from);
+  }
+
+  inline createChannel& operator=(createChannel&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const createChannel& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const createChannel* internal_default_instance() {
+    return reinterpret_cast<const createChannel*>(
+               &_createChannel_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(createChannel* other);
+  friend void swap(createChannel& a, createChannel& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline createChannel* New() const final {
+    return CreateMaybeMessage<createChannel>(nullptr);
+  }
+
+  createChannel* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<createChannel>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const createChannel& from);
+  void MergeFrom(const createChannel& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(createChannel* other);
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::google::protobuf::StringPiece FullMessageName() {
+    return "Chat.createChannel";
+  }
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string channelName = 1;
+  void clear_channelname();
+  static const int kChannelNameFieldNumber = 1;
+  const ::std::string& channelname() const;
+  void set_channelname(const ::std::string& value);
+  #if LANG_CXX11
+  void set_channelname(::std::string&& value);
+  #endif
+  void set_channelname(const char* value);
+  void set_channelname(const char* value, size_t size);
+  ::std::string* mutable_channelname();
+  ::std::string* release_channelname();
+  void set_allocated_channelname(::std::string* channelname);
+
+  // @@protoc_insertion_point(class_scope:Chat.createChannel)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr channelname_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Chat_2eproto;
+};
 // ===================================================================
 
 
@@ -1216,9 +1343,68 @@ inline void leaveChannel::set_allocated_channelname(::std::string* channelname) 
   // @@protoc_insertion_point(field_set_allocated:Chat.leaveChannel.channelName)
 }
 
+// -------------------------------------------------------------------
+
+// createChannel
+
+// string channelName = 1;
+inline void createChannel::clear_channelname() {
+  channelname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& createChannel::channelname() const {
+  // @@protoc_insertion_point(field_get:Chat.createChannel.channelName)
+  return channelname_.GetNoArena();
+}
+inline void createChannel::set_channelname(const ::std::string& value) {
+  
+  channelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Chat.createChannel.channelName)
+}
+#if LANG_CXX11
+inline void createChannel::set_channelname(::std::string&& value) {
+  
+  channelname_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:Chat.createChannel.channelName)
+}
+#endif
+inline void createChannel::set_channelname(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  channelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Chat.createChannel.channelName)
+}
+inline void createChannel::set_channelname(const char* value, size_t size) {
+  
+  channelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Chat.createChannel.channelName)
+}
+inline ::std::string* createChannel::mutable_channelname() {
+  
+  // @@protoc_insertion_point(field_mutable:Chat.createChannel.channelName)
+  return channelname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* createChannel::release_channelname() {
+  // @@protoc_insertion_point(field_release:Chat.createChannel.channelName)
+  
+  return channelname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void createChannel::set_allocated_channelname(::std::string* channelname) {
+  if (channelname != nullptr) {
+    
+  } else {
+    
+  }
+  channelname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), channelname);
+  // @@protoc_insertion_point(field_set_allocated:Chat.createChannel.channelName)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

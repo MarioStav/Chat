@@ -11,7 +11,7 @@
 using namespace std;
 using namespace asio;
 
-void ChatClient::handleUserInput(ip::tcp::socket& _socket)
+void ChatClient::handleUserInput(ip::tcp::socket &_socket)
 {
 
     string line;
@@ -21,7 +21,7 @@ void ChatClient::handleUserInput(ip::tcp::socket& _socket)
         std::istream_iterator<std::string> beg(buf), end;
 
         std::vector<std::string> tokens(beg, end);
-        if ((tokens.size() == 2) && (tokens.at(0) == "/join" ))
+        if ((tokens.size() == 2) && (tokens.at(0) == "/join"))
         {
             cout << "joining channel " << tokens.at(1) << endl;
         }
@@ -31,10 +31,20 @@ void ChatClient::handleUserInput(ip::tcp::socket& _socket)
             Chat::SignOut signOutMessage;
             networking::sendProto(_socket, signOutMessage);
         }
+        else if ((tokens.size() == 2) && (tokens.at(0) == "/createChannel"))
+        {
+            cout << "creating channel " << tokens.at(1) << endl;
+            Chat::createChannel createChannelMessage;
+            networking::sendProto(_socket, createChannelMessage);
+        }
+        else
+        {
+            cout << "Invalid Command entered" << endl;
+        }
     }
 }
 
-ChatClient::ChatClient(short unsigned int _port, string _name)
+ChatClient::ChatClient(short unsigned int _port, string _name, bool admin)
 {
     try
     {
@@ -48,24 +58,20 @@ ChatClient::ChatClient(short unsigned int _port, string _name)
         signInMessage.set_name(_name);
         signInMessage.set_ip(socket.local_endpoint().address().to_string());
         signInMessage.set_port(_port);
+        signInMessage.set_admin(admin);
         networking::sendProto(socket, signInMessage);
 
-        ip::tcp::endpoint ep{ip::tcp::v4(), _port};
-        ip::tcp::acceptor acc{ctx, ep};
+        std::thread t(&ChatClient::handleUserInput, this, ref(socket));
         while (true)
         {
-            std::thread t(&ChatClient::handleUserInput, this, ref(socket));
-            t.join();
             try
             {
-                acc.listen();
-                ip::tcp::socket socketLi{acc.accept()};
                 networking::MessageType mType;
-                networking::receiveProtoMessageType(socketLi, mType);
+                networking::receiveProtoMessageType(socket, mType);
                 if (mType == networking::MessageType::ChatMessage)
                 {
                     Chat::ChatMessage cm;
-                    networking::receiveProtoMessage(socketLi, cm);
+                    networking::receiveProtoMessage(socket, cm);
                     cout << "\n[" + cm.channel() + "]: " + cm.text() << endl;
                 }
                 else
@@ -79,6 +85,8 @@ ChatClient::ChatClient(short unsigned int _port, string _name)
                 spdlog::error(e.what());
             }
         }
+
+        t.join();
     }
     catch (const asio::system_error &e)
     {
