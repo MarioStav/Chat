@@ -1,0 +1,32 @@
+[
+  {
+    "directory": "/home/mario/Schreibtisch/stavarache/build",
+    "command": "c++ -IChatServer@exe -I. -I.. -I../include -I/usr/local/include -I/home/mario/asio/asio/include -I/home/mario/clipp/include -I/home/mario/spdlog/include -I/home/mario/json/ -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Wpedantic -Werror -std=c++17 -g -DASIO_STANDALONE -DASIO_NO_DEPRECATED -pthread -g -std=c++11 -DNDEBUG  -MD -MQ 'ChatServer@exe/meson-generated_Chat.pb.cc.o' -MF 'ChatServer@exe/meson-generated_Chat.pb.cc.o.d' -o 'ChatServer@exe/meson-generated_Chat.pb.cc.o' -c 'ChatServer@exe/Chat.pb.cc'",
+    "file": "ChatServer@exe/Chat.pb.cc"
+  },
+  {
+    "directory": "/home/mario/Schreibtisch/stavarache/build",
+    "command": "c++ -IChatServer@exe -I. -I.. -I../include -I/usr/local/include -I/home/mario/asio/asio/include -I/home/mario/clipp/include -I/home/mario/spdlog/include -I/home/mario/json/ -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Wpedantic -Werror -std=c++17 -g -DASIO_STANDALONE -DASIO_NO_DEPRECATED -pthread -g -std=c++11 -DNDEBUG  -MD -MQ 'ChatServer@exe/src_chat_server_main.cpp.o' -MF 'ChatServer@exe/src_chat_server_main.cpp.o.d' -o 'ChatServer@exe/src_chat_server_main.cpp.o' -c ../src/chat_server/main.cpp",
+    "file": "../src/chat_server/main.cpp"
+  },
+  {
+    "directory": "/home/mario/Schreibtisch/stavarache/build",
+    "command": "c++ -IChatServer@exe -I. -I.. -I../include -I/usr/local/include -I/home/mario/asio/asio/include -I/home/mario/clipp/include -I/home/mario/spdlog/include -I/home/mario/json/ -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Wpedantic -Werror -std=c++17 -g -DASIO_STANDALONE -DASIO_NO_DEPRECATED -pthread -g -std=c++11 -DNDEBUG  -MD -MQ 'ChatServer@exe/src_chat_server_chat_server.cpp.o' -MF 'ChatServer@exe/src_chat_server_chat_server.cpp.o.d' -o 'ChatServer@exe/src_chat_server_chat_server.cpp.o' -c ../src/chat_server/chat_server.cpp",
+    "file": "../src/chat_server/chat_server.cpp"
+  },
+  {
+    "directory": "/home/mario/Schreibtisch/stavarache/build",
+    "command": "c++ -IChatClient@exe -I. -I.. -I../include -I/usr/local/include -I/home/mario/asio/asio/include -I/home/mario/clipp/include -I/home/mario/spdlog/include -I/home/mario/json/ -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Wpedantic -Werror -std=c++17 -g -DASIO_STANDALONE -DASIO_NO_DEPRECATED -pthread -g -std=c++11 -DNDEBUG  -MD -MQ 'ChatClient@exe/meson-generated_Chat.pb.cc.o' -MF 'ChatClient@exe/meson-generated_Chat.pb.cc.o.d' -o 'ChatClient@exe/meson-generated_Chat.pb.cc.o' -c 'ChatClient@exe/Chat.pb.cc'",
+    "file": "ChatClient@exe/Chat.pb.cc"
+  },
+  {
+    "directory": "/home/mario/Schreibtisch/stavarache/build",
+    "command": "c++ -IChatClient@exe -I. -I.. -I../include -I/usr/local/include -I/home/mario/asio/asio/include -I/home/mario/clipp/include -I/home/mario/spdlog/include -I/home/mario/json/ -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Wpedantic -Werror -std=c++17 -g -DASIO_STANDALONE -DASIO_NO_DEPRECATED -pthread -g -std=c++11 -DNDEBUG  -MD -MQ 'ChatClient@exe/src_chat_client_main.cpp.o' -MF 'ChatClient@exe/src_chat_client_main.cpp.o.d' -o 'ChatClient@exe/src_chat_client_main.cpp.o' -c ../src/chat_client/main.cpp",
+    "file": "../src/chat_client/main.cpp"
+  },
+  {
+    "directory": "/home/mario/Schreibtisch/stavarache/build",
+    "command": "c++ -IChatClient@exe -I. -I.. -I../include -I/usr/local/include -I/home/mario/asio/asio/include -I/home/mario/clipp/include -I/home/mario/spdlog/include -I/home/mario/json/ -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Wpedantic -Werror -std=c++17 -g -DASIO_STANDALONE -DASIO_NO_DEPRECATED -pthread -g -std=c++11 -DNDEBUG  -MD -MQ 'ChatClient@exe/src_chat_client_chat_client.cpp.o' -MF 'ChatClient@exe/src_chat_client_chat_client.cpp.o.d' -o 'ChatClient@exe/src_chat_client_chat_client.cpp.o' -c ../src/chat_client/chat_client.cpp",
+    "file": "../src/chat_client/chat_client.cpp"
+  }
+]

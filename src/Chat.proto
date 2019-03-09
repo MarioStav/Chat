@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package Chat;
+
+message ChatMessage {
+  string text = 1;
+  string channel = 2;
+}
+
+message SignIn {
+  string name = 1;
+  string ip = 2; 
+  int32 port = 3;
+  bool admin = 4;
+}
+
+message SignOut {
+}
+
+message Unauthorized{
+
+}
+
+message joinChannel{
+  string channelName = 1;
+}
+
+
+message leaveChannel{
+  string channelName = 1;
+}

@@ -1,0 +1,1 @@
+handling user input (for joining channel and signing out)
