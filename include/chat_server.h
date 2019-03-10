@@ -23,11 +23,10 @@ class ChatServer
 private:
   std::vector<Client> clients;
   std::map<std::string, std::vector<int>> channels;
-  int nextClientId = 0;
 
 public:
-  ChatServer(){};
-  ChatServer(short unsigned int _port);
+  ChatServer();
+  ChatServer(nlohmann::json config);
   void handleClient(Client &_client);
   void broadcastMessage(Client &_client, std::string _text, std::string _channel);
   void createChannel(std::string _name);

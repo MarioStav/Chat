@@ -1,0 +1,8 @@
+{
+    "channels": {
+        "1": "Hall",
+        "2": "Bedroom",
+        "3": "Saloon"
+    },
+    "server": "127.0.0.1:7777"
+}

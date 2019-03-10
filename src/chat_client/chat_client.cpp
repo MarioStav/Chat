@@ -41,7 +41,7 @@ void ChatClient::handleUserInput(ip::tcp::socket &_socket)
                 networking::sendProto(_socket, leaveChannelMessage);
             }
             else if ((tokens.size() == 2) && (tokens.at(0) == "/createChannel"))
-            {  
+            {
                 cout << "created channel " << tokens.at(1) << endl;
                 Chat::createChannel createChannelMessage;
                 createChannelMessage.set_channelname(tokens.at(1));
@@ -110,18 +110,41 @@ void ChatClient::handleUserInput(ip::tcp::socket &_socket)
                 }
             }
         }
-    }catch(exception& e){
+    }
+    catch (exception &e)
+    {
         cout << e.what() << endl;
     }
 }
 
 ChatClient::ChatClient(short unsigned int _port, string _name, bool admin)
 {
+    this->config = {};
+    startClient(_port, _name, admin);
+}
+
+void ChatClient::startClient(short unsigned int _port, string _name, bool admin)
+{
     try
     {
         io_context ctx;
         ip::tcp::resolver resolver{ctx};
-        auto results = resolver.resolve("127.0.0.1", "7777");
+        string ip;
+        string port;
+        if (this->config == nullptr)
+        {
+            ip = "127.0.0.1";
+            port = "7777";
+        }
+        else
+        {
+            string server = this->config["server"];
+            string delimiter = ":";
+            ip = server.substr(0, server.find(delimiter) + 1);
+            port = server.substr(server.find(delimiter) + 1);
+            
+        }
+        auto results = resolver.resolve(ip, port);
         ip::tcp::socket socket{ctx};
         asio::connect(socket, results);
 
@@ -154,6 +177,19 @@ ChatClient::ChatClient(short unsigned int _port, string _name, bool admin)
                         cout << help << endl;
                     }
                 }
+                else if (mType == networking::MessageType::failure)
+                {
+                    Chat::failure f;
+                    networking::receiveProtoMessage(socket, f);
+                    cout << f.text() << endl;
+                }
+                else if (mType == networking::MessageType::success)
+                {
+
+                    Chat::success s;
+                    networking::receiveProtoMessage(socket, s);
+                    cout << s.text() << endl;
+                }
                 else
                 {
                     spdlog::error("Reiceved invalid message.");
@@ -173,4 +209,10 @@ ChatClient::ChatClient(short unsigned int _port, string _name, bool admin)
         spdlog::error("Unable to connect to server.");
         spdlog::error(e.what());
     }
+}
+
+ChatClient::ChatClient(short unsigned int _port, string _name, bool admin, nlohmann::json _config)
+{
+    this->config = _config;
+    startClient(_port, _name, admin);
 }

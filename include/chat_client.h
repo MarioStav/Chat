@@ -18,8 +18,11 @@
 
 class ChatClient{
 public:
+    nlohmann::json config;
     ChatClient(){};
     ChatClient(short unsigned int _port, std::string _name, bool admin);
+    ChatClient(short unsigned int _port, std::string _name, bool admin, nlohmann::json _config);
     void signIn(asio::ip::tcp::socket& _socket);
     void handleUserInput(asio::ip::tcp::socket& _socket); 
+    void startClient(short unsigned int _port, std::string _name, bool admin);
 };

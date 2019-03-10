@@ -10,6 +10,7 @@
 
 using namespace asio;
 using namespace std;
+using json = nlohmann::json;
 
 void ChatServer::broadcastMessage(Client &_client, string _text, string _channel)
 {
@@ -77,7 +78,8 @@ void ChatServer::handleClient(Client &_client)
                 _client.setName(signInMessage.name());
                 _client.setIp(signInMessage.ip());
                 _client.setPort(signInMessage.port());
-                if(signInMessage.admin()){
+                if (signInMessage.admin())
+                {
                     _client.setAdmin();
                 }
                 broadcastMessage(ref(_client), _client.getName() + " just signed in!", "SystemMessage");
@@ -97,10 +99,16 @@ void ChatServer::handleClient(Client &_client)
                 if (_client.getAdmin())
                 {
                     createChannel(createChannelMessage.channelname());
+                    Chat::success successMessage;
+                    successMessage.set_text("successfully created channel");
+                    networking::sendProto(*(_client.getSocket()), successMessage);
                 }
                 else
                 {
-                    spdlog::error("You have to be admin");
+                    Chat::failure failureMessage;
+                    failureMessage.set_text("couldn't create channel: insufficient privileges");
+                    networking::sendProto(*(_client.getSocket()), failureMessage);
+
                 }
             }
             else if (messageType == networking::MessageType::deleteChannel)
@@ -110,10 +118,17 @@ void ChatServer::handleClient(Client &_client)
                 if (_client.getAdmin())
                 {
                     deleteChannel(deleteChannelMessage.channelname());
+                    Chat::success successMessage;
+                    successMessage.set_text("successfully deleted channel");
+                    networking::sendProto(*(_client.getSocket()), successMessage);
                 }
                 else
                 {
-                    spdlog::error("You have to be admin");
+                    
+                    Chat::failure failureMessage;
+                    failureMessage.set_text("couldn't create channel: insufficient privileges");
+                    networking::sendProto(*(_client.getSocket()), failureMessage);
+                    
                 }
             }
             else if (messageType == networking::MessageType::joinChannel)
@@ -156,32 +171,45 @@ void ChatServer::handleClient(Client &_client)
     }
 }
 
-ChatServer::ChatServer(short unsigned int _port)
+ChatServer::ChatServer()
 {
     io_context ctx;
+    ip::tcp::endpoint ep{ip::tcp::v4(), 7777}; //standardport
+    ip::tcp::acceptor acc{ctx, ep};
+    acc.listen();
+
+    std::vector<std::thread> threads;
+    spdlog::info("Waiting for clients");
+    clients.reserve(100);
+    while (true)
+    {
+        Client client = make_shared<asio::ip::tcp::socket>(acc.accept());
+        this->clients.push_back(client);
+        std::thread t(&ChatServer::handleClient, this, ref(clients.at(clients.size() - 1)));
+        t.detach();
+    }
+}
+
+ChatServer::ChatServer(json config){ 
+    string delimiter = ":";
+    string server = config["server"];
+    string port = server.substr(server.find(delimiter) + 1);
+    io_context ctx;
+    short unsigned int _port = stoi(port);
     ip::tcp::endpoint ep{ip::tcp::v4(), _port};
     ip::tcp::acceptor acc{ctx, ep};
     acc.listen();
 
     std::vector<std::thread> threads;
     spdlog::info("Waiting for clients");
+    clients.reserve(100);
     while (true)
     {
         Client client = make_shared<asio::ip::tcp::socket>(acc.accept());
-
-        client.setId(nextClientId);
-        clients.resize(nextClientId + 1);
-        clients.at(nextClientId) = client;
-        nextClientId++;
-
-        std::thread t(&ChatServer::handleClient, this, ref(client));
+        this->clients.push_back(client);
+        std::thread t(&ChatServer::handleClient, this, ref(clients.at(clients.size() - 1)));
         t.detach();
     }
-
-    // for (auto &t : threads)
-    // {
-    //     t.join();
-    // }
 }
 
 void ChatServer::createChannel(std::string _name)

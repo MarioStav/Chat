@@ -50,3 +50,10 @@ message helpMessage{
   
 }
 
+message success{
+  string text = 1;
+}
+
+message failure{
+  string text = 1;
+}

@@ -10,18 +10,19 @@
 #include <iostream>
 #include "chat_client.h"
 #include "chat_server.h"
+#include <fstream>
 
 using namespace std;
 using namespace asio;
 using namespace clipp;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    short unsigned int port;
-    bool help = false;
-    auto cli = (option("-p", "--port").doc("port to connect to") & value("port", port),
-                 option("-h", "--help").set(help).doc("help")
-    );
+    
+    bool help{false};
+    bool conf{false};
+    auto cli = (option("-h", "--help").set(help).doc("help"),
+                option("-c", "--config").doc("configuration via JSON-file").set(conf));
 
     if (!parse(argc, argv, cli))
     {
@@ -32,7 +33,16 @@ int main(int argc, char* argv[])
     {
         cout << make_man_page(cli, argv[0]);
     }
+    if (conf)
+    {
+        nlohmann::json config;
+        ifstream i("../src/config.json");
+        config = nlohmann::json::parse(i);
+        ChatServer server(config);
+    }
+    else
+    {
 
-    ChatServer server(port);
-
+        ChatServer server();
+    }
 }
