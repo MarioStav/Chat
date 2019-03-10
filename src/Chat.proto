@@ -18,7 +18,7 @@ message SignOut {
 }
 
 message Unauthorized{
-
+  string text = 1;
 }
 
 message joinChannel{
@@ -33,3 +33,20 @@ message leaveChannel{
 message createChannel{
   string channelName = 1;
 }
+
+message showChannels{
+
+}
+
+message showChannelsResponse{
+  repeated string channels = 1;
+}
+
+message deleteChannel{
+  string channelName = 1;
+}
+
+message helpMessage{
+  
+}
+

@@ -1,0 +1,14 @@
+data/src/chat_server/chat_server.cpp.i
+data/src/chat_client/chat_client.cpp.i
+data/src/main.cpp.i
+data/include/chat_client.h.i
+data/meson_options.txt.i
+data/src/json.cpp.i
+data/src/dummy.proto.i
+data/src/chat_server/main.cpp.i
+data/.hgignore.i
+data/src/chat_client/main.cpp.i
+data/src/includes.cpp.i
+data/LICENSE.i
+data/include/client.h.i
+data/include/chat_server.h.i

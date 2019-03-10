@@ -19,7 +19,7 @@ private:
     short unsigned int port;
     int id;
     std::shared_ptr<asio::ip::tcp::socket> socket;
-    bool admin;
+    bool admin = false;
 public:
     Client() {};
     Client(std::shared_ptr<asio::ip::tcp::socket> _socket) {this->socket = _socket;};

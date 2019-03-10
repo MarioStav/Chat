@@ -44,7 +44,10 @@ enum class MessageType
     Unauthorized = 4,
     joinChannel = 5,
     leaveChannel = 6,
-    createChannel = 7
+    createChannel = 7,
+    showChannels = 8,
+    showChannelsResponse = 9,
+    deleteChannel = 10
 };
 
 const std::unordered_map<std::type_index, MessageType> typeMapping{
@@ -54,7 +57,10 @@ const std::unordered_map<std::type_index, MessageType> typeMapping{
     {typeid(Chat::Unauthorized), MessageType::Unauthorized},
     {typeid(Chat::joinChannel), MessageType::joinChannel},
     {typeid(Chat::leaveChannel), MessageType::leaveChannel},
-    {typeid(Chat::createChannel), MessageType::createChannel}};
+    {typeid(Chat::createChannel), MessageType::createChannel},
+    {typeid(Chat::showChannels), MessageType::showChannels},
+    {typeid(Chat::showChannelsResponse), MessageType::showChannelsResponse},
+    {typeid(Chat::deleteChannel), MessageType::deleteChannel}};
 
 inline int sendProto(tcp::socket &socket, google::protobuf::Message &message)
 {

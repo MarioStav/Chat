@@ -33,9 +33,6 @@ int main(int argc, char* argv[])
         cout << make_man_page(cli, argv[0]);
     }
 
-
-
-
     cout << "Enter Username: ";
     string name;
     cin >> name;
